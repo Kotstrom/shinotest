@@ -3,99 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тест: Какой ты шинопровод?</title>
+    <title>Какой ты шинопровод?</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin: 20px; background-color: #f4f4f4; color: #333; }
-        .container { background: rgba(0, 81, 122, 0.1); padding: 20px; border-radius: 10px; }
-        .question { font-size: 20px; margin-bottom: 10px; }
-        .answers button { display: block; margin: 10px auto; padding: 12px; width: 85%; background-color: rgba(0, 81, 122, 0.7); color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; transition: 0.3s; }
-        .answers button:hover { background-color: rgba(0, 81, 122, 1); }
-        #result { font-size: 22px; font-weight: bold; margin-top: 20px; color: #00517A; }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #f0f0f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+        button {
+            margin: 10px;
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 25px;
+            background-color: #00517A;
+            color: white;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #003a56;
+        }
     </style>
 </head>
 <body>
-    <h1>⚡🚀 Тест: Какой ты шинопровод? 🏗️🔥</h1>
     <div class="container">
-        <div id="quiz">
-            <p class="question" id="question-text"></p>
-            <div class="answers" id="answers"></div>
-        </div>
+        <h1>Какой ты шинопровод? 🤩</h1>
+        <p>Пройди тест и узнай!</p>
+        <button onclick="startTest()">Начать</button>
+        <div id="test" style="display:none;"></div>
         <div id="result" style="display:none;"></div>
     </div>
-
+    
     <script>
         const questions = [
-            {
-                text: "🥶 Как ты относишься к холоду?",
-                answers: [
-                    { text: "Обожаю мороз, как снежный барс! ❄️", type: "монотроллейный" },
-                    { text: "Нормально, но я не пингвин 🐧", type: "изолированный рельс U12" },
-                    { text: "Предпочитаю комфортный микроклимат 🌡️", type: "гибкий" },
-                    { text: "Жара - вот это кайф! 🔥", type: "троллейный" }
-                ]
-            },
-            {
-                text: "⏳ Какой у тебя рабочий ритм?",
-                answers: [
-                    { text: "Постоянное движение, как гепард! 🏃", type: "гибкий" },
-                    { text: "По расписанию, как швейцарские часы! ⏰", type: "изолированный рельс U12" },
-                    { text: "Нагрузки? Да хоть целый локомотив потяну! 🚂", type: "монотроллейный" },
-                    { text: "Работаю по зову души ⚡", type: "троллейный" }
-                ]
-            },
-            {
-                text: "🔋 Как ты относишься к нагрузкам?",
-                answers: [
-                    { text: "Выдержу всё! Даже налоговую проверку! 💪", type: "изолированный рельс U12" },
-                    { text: "Гибкость - моё второе имя 🤸", type: "гибкий" },
-                    { text: "Чем сложнее, тем интереснее! 🔥", type: "монотроллейный" },
-                    { text: "Знаю, когда надо напрячься, а когда отдохнуть ⚖️", type: "троллейный" }
-                ]
-            }
+            { text: "Какую температуру ты предпочитаешь?", options: ["Жарче, чем в сауне! 🔥", "Люблю стабильность 🌡️", "Чем холоднее, тем лучше! ❄️", "Мне всё равно, лишь бы работать! ⚙️"] },
+            { text: "Какие погодные условия тебе нравятся?", options: ["Пыль, влага, грязь – моя стихия! 🌪️", "Я создан для идеальных условий ☀️", "Люблю снег, дождь, ураган! 🌨️🌪️", "Главное, чтобы не залило! ☂️"] },
+            { text: "Ты готов работать в агрессивной среде?", options: ["Химикаты, кислоты? Легко! 🧪", "Предпочитаю чистоту и порядок 🏡", "Можно немного испытаний 🏗️", "Я бронированный! 🦾"] },
+            { text: "Какую нагрузку ты выдержишь?", options: ["Максимум мощности! ⚡", "Средний уровень – надежность! 🔩", "Легкие нагрузки, но с запасом! 🔋", "Главное – баланс! ⚖️"] }
         ];
-        
-        const results = {
-            "троллейный": "Ты – **троллейный шинопровод**! ⚡ Надёжный, но слегка ленивый. Работаешь, когда надо, но если можно отдохнуть – ты тут как тут! 😆",
-            "монотроллейный": "Ты – **монотроллейный шинопровод**! 🔥 Машина для работы! Тебя ничто не остановит, даже если вокруг хаос и дедлайны горят! 💪",
-            "гибкий": "Ты – **гибкий шинопровод**! 🤸 Лёгкий на подъём, адаптивный, но иногда слишком расслабленный. Жизнь – это баланс, братан! 😎",
-            "изолированный рельс U12": "Ты – **изолированный рельс U12**! 🏗️ Железобетонная стабильность. Ты работаешь чётко, без сбоев, но иногда хотелось бы чуть больше фана! 😉"
-        };
-        
-        let scores = { "троллейный": 0, "монотроллейный": 0, "гибкий": 0, "изолированный рельс U12": 0 };
+
+        let answers = [];
         let currentQuestion = 0;
-        
+
+        function startTest() {
+            document.querySelector("#test").style.display = "block";
+            document.querySelector("button").style.display = "none";
+            showQuestion();
+        }
+
         function showQuestion() {
             if (currentQuestion >= questions.length) {
                 showResult();
                 return;
             }
-            
-            const question = questions[currentQuestion];
-            document.getElementById("question-text").innerText = question.text;
-            
-            const answersDiv = document.getElementById("answers");
-            answersDiv.innerHTML = "";
-            
-            question.answers.forEach(answer => {
-                const button = document.createElement("button");
-                button.innerText = answer.text;
-                button.onclick = () => {
-                    scores[answer.type]++;
+            let q = questions[currentQuestion];
+            let testDiv = document.querySelector("#test");
+            testDiv.innerHTML = `<p>${q.text}</p>`;
+            q.options.forEach((option, index) => {
+                let btn = document.createElement("button");
+                btn.innerText = option;
+                btn.onclick = function () {
+                    answers.push(index);
                     currentQuestion++;
                     showQuestion();
                 };
-                answersDiv.appendChild(button);
+                testDiv.appendChild(btn);
             });
         }
-        
-        function showResult() {
-            let resultType = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
-            document.getElementById("quiz").style.display = "none";
-            document.getElementById("result").innerHTML = results[resultType];
-            document.getElementById("result").style.display = "block";
+
+ function showResult() {
+            let resultText = "";
+            if (answers[0] === 0) {
+                resultText = "Ты – троллейный шинопровод! Надежный, как дедовский топор, проверенный временем и готовый работать даже в условиях апокалипсиса! ⚡";
+            } else if (answers[0] === 2) {
+                resultText = "Ты – монотроллейный шинопровод! Тебя не испугать холодом, снегом и ледяным кофе – ты справишься даже в условиях Антарктиды! ❄️";
+            } else if (answers[2] === 0) {
+                resultText = "Ты – изолированный рельс U12! Ты выживаешь там, где другие ломаются, выдерживаешь химатаки и атмосферу запущенного гаража! 🦾";
+            } else {
+                resultText = "Ты – гибкий шинопровод! Готов адаптироваться к любым ситуациям, даже если тебя свернут в узел – ты всё равно будешь работать! 🔄";
+            }
+            resultText += "<br><br>Нужен шинопровод? Обращайтесь к нам – мы всегда поможем с выбором идеального варианта для вашего производства 🫶! <a href='https://tetikaprom.ru' target='_blank'>Наш сайт</a>.";
+            document.querySelector("#test").style.display = "none";
+            document.querySelector("#result").style.display = "block";
+            document.querySelector("#result").innerHTML = `<h2>Результат:</h2><p>${resultText}</p>`;
         }
-        
-        showQuestion();
     </script>
 </body>
 </html>
